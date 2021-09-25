@@ -8,7 +8,8 @@ class App extends React.Component {
     state ={
       manager: '',
       players: [],
-      balance: ''
+      balance: '',
+      value: ''
     };
  async componentDidMount(){
    //getting the manager from the network
@@ -30,6 +31,20 @@ class App extends React.Component {
         <p>This contract is managed by {this.state.manager}.
         There are currently {this.state.players.length} people enrolled.
         The Prize Pool contains {web3.utils.fromWei(this.state.balance, 'ether')} ether!!!</p>
+
+        <hr/>
+
+        <form>
+          <h4>Want to give it a shot?</h4>
+          <div>
+            <label>Amount of Ether to Enter </label>
+            <input 
+              value={this.state.value}
+              onChange={event => this.setState({value: event.target.value})}
+            />
+          </div>
+          <button>Submit</button>
+        </form>
       </div>
      
     );
