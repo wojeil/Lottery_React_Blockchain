@@ -22,6 +22,21 @@ class App extends React.Component {
 
     this.setState({manager, players, balance});
   }
+//function to submit Eth via form
+  onSubmit = async (event) => {
+    event.preventDefault();
+
+    //get a list of the accounts first
+    const accounts = await web3.eth.getAccounts();
+
+    await lottery.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei(this.state.value, 'ether')
+    });
+
+  };
+
+
   render() {
     // console.log(web3);
     // web3.eth.getAccounts().then(console.log);
@@ -34,7 +49,7 @@ class App extends React.Component {
 
         <hr/>
 
-        <form>
+        <form onSubmit={this.onSubmit}>
           <h4>Want to give it a shot?</h4>
           <div>
             <label>Amount of Ether to Enter </label>
